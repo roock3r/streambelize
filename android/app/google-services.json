@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "240471212444",
+    "firebase_url": "https://stream-belize.firebaseio.com",
+    "project_id": "stream-belize",
+    "storage_bucket": "stream-belize.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240471212444:android:bdf422ead899e57baec859",
+        "android_client_info": {
+          "package_name": "org.silvatech.streambelize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240471212444-aqtmbsm1fvrsbbp0nj8kl42bll7qnop8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.silvatech.streambelize",
+            "certificate_hash": "fde6c3ec210d830a2b6ccf73cb8906980ffb209a"
+          }
+        },
+        {
+          "client_id": "240471212444-tuekncogaa4amqca699fqufj907hotnu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAmXHgVhDt_I-JOmF2OJd0txeOjD6kAcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240471212444-tuekncogaa4amqca699fqufj907hotnu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
