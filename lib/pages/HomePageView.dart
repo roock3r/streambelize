@@ -12,6 +12,7 @@ import 'package:streambelize/channels/WaveTvView.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:streambelize/model/json/loginModel.dart';
 
 
 class DrawerItem {

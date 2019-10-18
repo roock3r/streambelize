@@ -60,14 +60,14 @@ class _KremTvState extends State<KremTv> {
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: widget.color,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.fullscreen),
-            onPressed: () {
-              _controller.value.size;
-            },
-          )
-        ],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.fullscreen),
+              onPressed: () {
+                fullScreen(context);
+              },
+            )
+          ],
       ),
       body: Center(
         child: _controller.value.initialized
@@ -97,5 +97,20 @@ class _KremTvState extends State<KremTv> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void fullScreen(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (BuildContext context) {
+        return Container(
+          child: _controller.value.initialized
+              ? AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: VideoPlayer(_controller),
+          )
+              : Container(),
+        );
+      },
+    ));
   }
 }

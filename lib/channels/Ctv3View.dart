@@ -64,7 +64,7 @@ class _Ctv3State extends State<Ctv3> {
           IconButton(
             icon: Icon(Icons.fullscreen),
             onPressed: () {
-              _controller.value.size;
+              fullScreen(context);
             },
           )
         ],
@@ -97,5 +97,20 @@ class _Ctv3State extends State<Ctv3> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void fullScreen(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (BuildContext context) {
+        return Container(
+          child: _controller.value.initialized
+              ? AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: VideoPlayer(_controller),
+          )
+              : Container(),
+        );
+      },
+    ));
   }
 }

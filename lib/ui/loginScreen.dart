@@ -62,7 +62,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 
       PlatformScaffold(
-        drawer: BasicDrawer(),
+//        drawer: BasicDrawer(),
         appBar:  AppBar(
           title: Text("LOGIN",
             style: TextStyle(fontSize: 30.0, color: Colors.white,),

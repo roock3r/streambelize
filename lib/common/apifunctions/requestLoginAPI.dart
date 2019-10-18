@@ -9,10 +9,11 @@ import 'dart:convert';
 import 'package:streambelize/model/json/loginModel.dart';
 
 Future<LoginModel> requestLoginAPI(BuildContext context, String username, String password) async {
-  final url = "http://192.168.0.197:3000/api/users/login";
+//  final url = "http://192.168.0.197:3000/api/users/login";
+  final url = "http://127.0.0.1:8000/api/V1/accounts/token";
 
   Map<String, String> body = {
-    'email': username,
+    'login': username,
     'password': password,
   };
 

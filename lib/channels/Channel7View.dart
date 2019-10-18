@@ -64,7 +64,7 @@ class _Channel7State extends State<Channel7> {
           IconButton(
             icon: Icon(Icons.fullscreen),
             onPressed: () {
-              _controller.value.size;
+              fullScreen(context);
             },
           )
         ],
@@ -97,5 +97,20 @@ class _Channel7State extends State<Channel7> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void fullScreen(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (BuildContext context) {
+        return Container(
+          child: _controller.value.initialized
+              ? AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: VideoPlayer(_controller),
+          )
+              : Container(),
+        );
+      },
+    ));
   }
 }
