@@ -43,12 +43,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(decoration: BoxDecoration(color: Colors.blueAccent),
                   alignment: FractionalOffset(0.5, 0.3),
                   child:
-                  Text("Stream Belize", style: TextStyle(fontSize: 40.0, color: Colors.white),),
+                  Text("Stream Belize Live", style: TextStyle(fontSize: 40.0, color: Colors.white),),
                 ),
                 ),
                 Container(margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
                   child:
-                  Text("© Copyright Stream Belize 2019", style: TextStyle(fontSize: 16.0, color: Colors.white,),
+                  Text("© Copyright Stream Belize Live 2019", style: TextStyle(fontSize: 16.0, color: Colors.white,),
                   ),
                 ),
               ],

@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
-const URL = "http://www.google.com";
+const URL = "http://www.streambelize.live";
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -62,7 +62,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 
       PlatformScaffold(
-//        drawer: BasicDrawer(),
+        drawer: BasicDrawer(),
         appBar:  AppBar(
           title: Text("LOGIN",
             style: TextStyle(fontSize: 30.0, color: Colors.white,),
@@ -81,7 +81,7 @@ class LoginScreenState extends State<LoginScreen> {
               children: <Widget>[
                 Container(alignment: Alignment.topCenter,
                     child: Padding(padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 15.0),
-                      child: Text("Stream Belize", style: TextStyle(fontSize: 40.0, color: Colors.black),),
+                      child: Text("Stream Belize Live", style: TextStyle(fontSize: 40.0, color: Colors.black),),
                     )
                 ),
 
@@ -119,7 +119,7 @@ class LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     controller: _userNameController,
                     decoration: InputDecoration(
-                      hintText: "Use your web  User name",
+                      hintText: "Enter your email",
                     ),
                     style: TextStyle(fontSize: 18.0, color: Colors.grey, fontWeight: FontWeight.bold, ),
                   ),

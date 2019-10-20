@@ -1,11 +1,8 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:streambelize/common/platform/platformScaffold.dart';
-import 'package:streambelize/common/widgets/basicDrawer.dart';
-
 import 'package:streambelize/channels/Channel5View.dart';
 import 'package:streambelize/channels/Channel7View.dart';
 import 'package:streambelize/channels/ChannelView.dart';
@@ -17,7 +14,10 @@ import 'package:streambelize/channels/MaxTvView.dart';
 import 'package:streambelize/channels/PlusTvView.dart';
 import 'package:streambelize/channels/VibesTvView.dart';
 import 'package:streambelize/channels/WaveTvView.dart';
+import 'package:streambelize/channels/HomeView.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:streambelize/common/functions/getToken.dart';
+
 
 class DrawerItem {
   String title;
@@ -44,7 +44,6 @@ class HomeScreen extends StatefulWidget {
 
   ];
 
-
   final String title;
 
   @override
@@ -53,16 +52,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  bool isSignedIn = false;
+  String _name  = "";
+  String _email = "";
+  String _token = "";
+
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
 
   @override
   void initState() {
+    getTokenPreference().then(updateToken);
+    getNamePreference().then(updateName);
+    getEmailPreference().then(updateEmail);
+
     super.initState();
+
     _saveCurrentRoute("/HomeScreen");
     firebaseCloudMessaging_Listeners();
 
   }
+
   //Modifcation starts here
+
 
   void firebaseCloudMessaging_Listeners() {
     if (Platform.isIOS) iOS_Permission();
@@ -78,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           builder: (context) => AlertDialog(
             content: ListTile(
-              title: Text(message['aps']['alert']['title']),
-              subtitle: Text(message['aps']['alert']['body']),
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
             ),
             actions: <Widget>[
               FlatButton(
@@ -116,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return new MyHomePage();
+        return new HomePage();
       case 1:
         return new Channel5(title: 'Channel 5',url: 'https://streambelize.com/hls/channel5.m3u8', color: Colors.lightGreenAccent);
       case 2:
@@ -153,31 +165,6 @@ class _HomeScreenState extends State<HomeScreen> {
     await preferences.setString('LastScreenRoute', lastRoute);
   }
 
-//  @override
-//  Widget build(BuildContext context) {
-//    return PlatformScaffold(
-//      appBar: AppBar(title: Text("Home Screen", style: TextStyle(color: Colors.black),),
-//        backgroundColor: Colors.white,
-//        iconTheme: IconThemeData(color: Colors.black),
-//        elevation:
-//        Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 6.0,
-//      ),
-//      drawer:
-//      BasicDrawer(),
-//      backgroundColor: Colors.white,
-//      body: Container(
-//        padding: EdgeInsets.all(32.0),
-//        child: Center(
-//          child: Column(
-//            children: <Widget>[
-//              Text('This is the Home screen'),
-//
-//            ],
-//          ),
-//        ),
-//      ),
-//    );
-//  }
   @override
   Widget build(BuildContext context) {
     List<Widget> drawerOptions = [];
@@ -193,57 +180,29 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-//    return PlatformScaffold(
-//      appBar: AppBar(
-//        // Here we take the value from the MyHomePage object that was created by
-//        // the App.build method, and use it to set our appbar title.
-//        title: Text(widget.title),
-//      ),
-//      drawer: new Drawer(
-//          child: ListView(
-//            padding: EdgeInsets.zero,
-//            children: <Widget>[
-//              UserAccountsDrawerHeader(
-//                accountName: Text("Cristian Silva"),
-//                accountEmail: Text("csilva@silvatech.org"),
-//                currentAccountPicture: CircleAvatar(
-//                  backgroundColor:
-//                  Theme.of(context).platform == TargetPlatform.iOS
-//                      ? Colors.blue
-//                      : Colors.white,
-//                  child: Text(
-//                    "C",
-//                    style: TextStyle(fontSize: 40.0),
-//                  ),
-//                ),
-//              ),
-//              new Column(children: drawerOptions)
-//            ],
-//          )
-//      ),
-//      body: _getDrawerItemWidget(_selectedDrawerIndex),
-//    );
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("Home Test"),
+        title: Text("Home"),
       ),
       drawer: new Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text("Cristian Silva"),
-                accountEmail: Text("csilva@silvatech.org"),
+                accountName: Text(_name.toUpperCase()),
+                accountEmail: Text(_email),
                 currentAccountPicture: CircleAvatar(
+                  backgroundImage: Image.network('http://www.gravatar.com/avatar/a6cc615ece03f1f1b42a4f4635065011?s=200&r=pg&d=mm').image,
                   backgroundColor:
                   Theme.of(context).platform == TargetPlatform.iOS
                       ? Colors.blue
                       : Colors.white,
                   child: Text(
-                    "C",
-                    style: TextStyle(fontSize: 40.0),
+                    _name.substring(0, 1),
+                    style: TextStyle(fontSize: 40.0,),
+                    
                   ),
                 ),
               ),
@@ -254,38 +213,23 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return PlatformScaffold(
-      appBar: AppBar(title: Text("Home Screen", style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation:
-        Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 6.0,
-      ),
-      drawer:
-      BasicDrawer(),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(32.0),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text('This is the Home screen'),
-
-            ],
-          ),
-        ),
-      ),
-    );
+  void updateName(String name) {
+    setState(() {
+      this._name = name;
+    });
   }
+
+  void updateToken(String token) {
+    setState(() {
+      this._token = token;
+    });
+  }
+
+  void updateEmail(String email) {
+    setState(() {
+      this._email = email;
+    });
+  }
+
 }
