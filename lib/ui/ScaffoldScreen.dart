@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streambelize/channels/AboutView.dart';
 import 'package:streambelize/channels/Channel5View.dart';
 import 'package:streambelize/channels/Channel7View.dart';
 import 'package:streambelize/channels/Ctv3View.dart';
@@ -18,6 +19,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:streambelize/common/functions/getToken.dart';
 import 'package:streambelize/common/apifunctions/requestLogoutAPI.dart';
 import 'package:streambelize/ui/SigninScreen.dart';
+
 
 
 class DrawerItem {
@@ -40,7 +42,9 @@ class ScaffoldScreen extends StatefulWidget {
     new DrawerItem("Vibes TV", Icons.arrow_forward),
     new DrawerItem("Wave TV", Icons.arrow_forward),
     new DrawerItem("MAX TV", Icons.arrow_forward),
-    new DrawerItem("Fiesta TV", Icons.arrow_forward)
+    new DrawerItem("Fiesta TV", Icons.arrow_forward),
+    new DrawerItem("About", Icons.arrow_forward),
+    new DrawerItem("Sign Out", Icons.arrow_forward)
 
   ];
 
@@ -147,6 +151,10 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
         return new MaxTv(title: 'Max TV',url: 'https://streambelize.com/maxtv/test.m3u8',color: Colors.lightBlue,);
       case 10:
         return new FiestaTv(title: 'Fiesta TV',url: 'https://streambelize.com/fiesta/a1s2d3.m3u8',color: Colors.lightBlue,);
+      case 11:
+        return new AboutView();
+      case 12:
+        return SigninScreen();
 
       default:
         return new Text("Error");
@@ -154,8 +162,14 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
   }
 
   _onSelectItem(int index) {
-    setState(() => _selectedDrawerIndex = index);
-    Navigator.of(context).pop(); // close the drawer
+    if (index == 12){
+      requestLogoutAPI(context);
+      Navigator.of(context).pushReplacementNamed('/SigninScreen');
+    }else{
+      setState(() => _selectedDrawerIndex = index);
+      Navigator.of(context).pop();
+    }
+     // close the drawer
   }
   //modification ends here
   _saveCurrentRoute(String lastRoute) async {
@@ -223,62 +237,6 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
       );
     }
 
-//    return WillPopScope(
-//      onWillPop: () => _exitApp(context),
-//      child: Scaffold(
-//            appBar: AppBar(
-//              // Here we take the value from the MyHomePage object that was created by
-//              // the App.build method, and use it to set our appbar title.
-//              title: Text("Stream Belize Live"),
-//            ),
-//            drawer: new Drawer(
-//                child: ListView(
-//                  padding: EdgeInsets.zero,
-//                  children: <Widget>[
-//                    UserAccountsDrawerHeader(
-//                      accountName: Text(_name.toUpperCase()),
-//                      accountEmail: Text(_email),
-//                      currentAccountPicture: CircleAvatar(
-//                        backgroundImage: Image.network('http://www.gravatar.com/avatar/a6cc615ece03f1f1b42a4f4635065011?s=200&r=pg&d=mm').image,
-//                        backgroundColor:
-//                        Theme.of(context).platform == TargetPlatform.iOS
-//                            ? Colors.blue
-//                            : Colors.white,
-//                        child: Text(
-//                          _name.substring(0, 1),
-//                          style: TextStyle(fontSize: 40.0,),
-//
-//                        ),
-//                      ),
-//                    ),
-//                    new Column(children: drawerOptions),
-//
-//
-//                    ListTile(title: Text("About", style: TextStyle(
-//                        color: Colors.black, fontSize: 20.0),),
-//                      onTap: () {
-//                        SystemChannels.textInput.invokeMethod('TextInput.hide');
-////              Here I have not implemented an actual about screen, but if you did you would navigate to it's route
-////              Navigator.of(context).pushReplacementNamed('/AboutScreen');
-//                      },
-//                    ),
-//                    ListTile(title: Text("Logout", style: TextStyle(
-//                        color: Colors.black, fontSize: 20.0),),
-//                      onTap: () {
-//                        requestLogoutAPI(context);
-//                        Navigator.of(context).pushReplacementNamed('/SigninScreen');
-//                      },
-//                    )
-//
-//
-//                  ],
-//                )
-//            ),
-//            body: _getDrawerItemWidget(_selectedDrawerIndex),
-//          ),
-//        );
-//    );
-
     return WillPopScope(
       onWillPop: () => _exitApp(context),
       child: FutureBuilder<bool>(
@@ -318,92 +276,17 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
                         ),
                       ),
                       new Column(children: drawerOptions),
-
-
-                      ListTile(title: Text("About", style: TextStyle(
-                          color: Colors.black, fontSize: 20.0),),
-                        onTap: () {
-                          SystemChannels.textInput.invokeMethod('TextInput.hide');
-//              Here I have not implemented an actual about screen, but if you did you would navigate to it's route
-//              Navigator.of(context).pushReplacementNamed('/AboutScreen');
-                        },
-                      ),
-                      ListTile(title: Text("Logout", style: TextStyle(
-                          color: Colors.black, fontSize: 20.0),),
-                        onTap: () {
-                          requestLogoutAPI(context);
-                          Navigator.of(context).pushReplacementNamed('/SigninScreen');
-                        },
-                      )
                     ],
                   )
               ),
               body: _getDrawerItemWidget(_selectedDrawerIndex),
             );
           } else {
-
             // Return loading screen while reading preferences
             return Center(child: CircularProgressIndicator());
           }
         },
       )
-
-
-//      child: Builder(
-//        builder: (BuildContext buildContext) => !isSignedIn
-//            ? SigninScreen()
-//            : Scaffold(
-//          appBar: AppBar(
-//            // Here we take the value from the MyHomePage object that was created by
-//            // the App.build method, and use it to set our appbar title.
-//            title: Text(widget.title),
-//          ),
-//          drawer: new Drawer(
-//              child: ListView(
-//                padding: EdgeInsets.zero,
-//                children: <Widget>[
-//                  UserAccountsDrawerHeader(
-//                    accountName: Text(_name.toUpperCase()),
-//                    accountEmail: Text(_email),
-//                    currentAccountPicture: CircleAvatar(
-//                      backgroundImage: Image.network('http://www.gravatar.com/avatar/a6cc615ece03f1f1b42a4f4635065011?s=200&r=pg&d=mm').image,
-//                      backgroundColor:
-//                      Theme.of(context).platform == TargetPlatform.iOS
-//                          ? Colors.blue
-//                          : Colors.white,
-//                      child: Text(
-//                        _name.substring(0, 1),
-//                        style: TextStyle(fontSize: 40.0,),
-//
-//                      ),
-//                    ),
-//                  ),
-//                  new Column(children: drawerOptions),
-//
-//
-//                  ListTile(title: Text("About", style: TextStyle(
-//                      color: Colors.black, fontSize: 20.0),),
-//                    onTap: () {
-//                      SystemChannels.textInput.invokeMethod('TextInput.hide');
-////              Here I have not implemented an actual about screen, but if you did you would navigate to it's route
-////              Navigator.of(context).pushReplacementNamed('/AboutScreen');
-//                    },
-//                  ),
-//                  ListTile(title: Text("Logout", style: TextStyle(
-//                      color: Colors.black, fontSize: 20.0),),
-//                    onTap: () {
-//                      requestLogoutAPI(context);
-//                      Navigator.of(context).pushReplacementNamed('/SigninScreen');
-//                    },
-//                  )
-//
-//
-//                ],
-//              )
-//          ),
-//          body: _getDrawerItemWidget(_selectedDrawerIndex),
-//        ),
-//      ),
     );
   }
 
