@@ -19,6 +19,8 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		B42342DB23513E8D00EB8BDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B42342DA23513E8D00EB8BDC /* GoogleService-Info.plist */; };
+		B4F4F3E1236A541400CFB35F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4F4F3E0236A541400CFB35F /* AVFoundation.framework */; };
+		B4F4F3E3236A542000CFB35F /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4F4F3E2236A542000CFB35F /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +60,9 @@
 		AADF0C25A23D26879DFA992A /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		B42342DA23513E8D00EB8BDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B4A13E5423515CF10008AD52 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		B4DC5638236624C20071C22D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		B4F4F3E0236A541400CFB35F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B4F4F3E2236A542000CFB35F /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4F4F3E1236A541400CFB35F /* AVFoundation.framework in Frameworks */,
 				9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */,
+				B4F4F3E3236A542000CFB35F /* AVKit.framework in Frameworks */,
 				3B80C3941E831B6300D905FE /* App.framework in Frameworks */,
 				807DC8A7E78E68E72982DF89 /* Pods_Runner.framework in Frameworks */,
 			);
@@ -77,6 +84,9 @@
 		041A76956A901E7A82952D2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4F4F3E2236A542000CFB35F /* AVKit.framework */,
+				B4F4F3E0236A541400CFB35F /* AVFoundation.framework */,
+				B4DC5638236624C20071C22D /* MediaPlayer.framework */,
 				3E61DED57CFBA940F7700047 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;

@@ -7,55 +7,35 @@ class Channel5 extends StatefulWidget {
   final String title;
   final String url;
   final color;
-  @override
 
+  @override
   _Channel5State createState() => _Channel5State();
 }
 
 class _Channel5State extends State<Channel5> {
   VideoPlayerController _controller;
+  Future<void> _initializeVideoPlayerFuture;
 
   @override
   void initState() {
+
+    _controller = VideoPlayerController.network(widget.url);
+
+    _initializeVideoPlayerFuture = _controller.initialize();
+
     super.initState();
-    _controller = VideoPlayerController.network(
-        widget.url)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+  }
+
+  @override
+  void dispose(){
+
+    _controller.dispose();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: widget.title,
-//      home: Scaffold(
-//        appBar: AppBar(
-//          title: Text(widget.title),
-//        ),
-//        body: Center(
-//          child: _controller.value.initialized
-//              ? AspectRatio(
-//            aspectRatio: _controller.value.aspectRatio,
-//            child: VideoPlayer(_controller),
-//          )
-//              : Container(),
-//        ),
-//        floatingActionButton: FloatingActionButton(
-//          onPressed: () {
-//            setState(() {
-//              _controller.value.isPlaying
-//                  ? _controller.pause()
-//                  : _controller.play();
-//            });
-//          },
-//          child: Icon(
-//            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-//          ),
-//        ),
-//      ),
-//    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -69,16 +49,25 @@ class _Channel5State extends State<Channel5> {
           )
         ],
       ),
-      body: Center(
-        child: _controller.value.initialized
-            ? AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: VideoPlayer(_controller),
-        )
-            : Container(),
+      body: FutureBuilder(
+        future: _initializeVideoPlayerFuture,
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+
+            return AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+
+              child: VideoPlayer(_controller),
+            );
+          }else{
+
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+
           setState(() {
             _controller.value.isPlaying
                 ? _controller.pause()
@@ -88,30 +77,26 @@ class _Channel5State extends State<Channel5> {
         child: Icon(
           _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
         ),
-
       ),
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
   void fullScreen(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
+
       builder: (BuildContext context) {
-        return Container(
+        return
+          Container(
             child: _controller.value.initialized
                 ? AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: VideoPlayer(_controller),
             )
-                : Container(),
+                : CircularProgressIndicator(),
         );
       },
-    ));
+    ),
+    );
   }
 
 }

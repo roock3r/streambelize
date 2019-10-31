@@ -26,7 +26,7 @@ Future<LoginModel> requestLoginAPI(BuildContext context, String username, String
     var user = new LoginModel.fromJson(responseJson);
 
     saveCurrentLogin(responseJson);
-    Navigator.of(context).pushReplacementNamed('/HomeScreen');
+    Navigator.of(context).pushReplacementNamed('/ScaffoldScreen');
 
     return LoginModel.fromJson(responseJson);
   } else {

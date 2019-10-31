@@ -1,6 +1,5 @@
 import 'package:streambelize/channels/Channel5View.dart';
 import 'package:streambelize/channels/Channel7View.dart';
-import 'package:streambelize/channels/ChannelView.dart';
 import 'package:streambelize/channels/Ctv3View.dart';
 import 'package:streambelize/channels/FiestaTvView.dart';
 import 'package:streambelize/channels/KremTvView.dart';

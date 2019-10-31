@@ -27,7 +27,7 @@ class _BasicDrawerState extends State<BasicDrawer>  {
               color: Colors.black, fontSize: 20.0),),
             onTap: () {
               requestLogoutAPI(context);
-              Navigator.of(context).pushReplacementNamed('/LoginScreen');
+              Navigator.of(context).pushReplacementNamed('/SigninScreen');
             },
           ),
         ],),

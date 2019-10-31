@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
-const URL = "http://www.streambelize.live";
+const URL = "http://streambelize.live";
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -23,6 +23,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+
+  bool _isLoading = false;
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -62,7 +64,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 
       PlatformScaffold(
-        drawer: BasicDrawer(),
+        //drawer: BasicDrawer(),
         appBar:  AppBar(
           title: Text("LOGIN",
             style: TextStyle(fontSize: 30.0, color: Colors.white,),
@@ -139,7 +141,7 @@ class LoginScreenState extends State<LoginScreen> {
                       hintText: 'Your password, keep it secret, keep it safe.',
                     ),
                     obscureText: true,
-                    style: TextStyle(fontSize: 18.0, color: Colors.grey, fontWeight: FontWeight.bold, ),
+                    style: TextStyle(fontSize: 18.0, color: Colors.grey, fontWeight: FontWeight.bold,),
                   ),
                 ),
 
@@ -148,6 +150,9 @@ class LoginScreenState extends State<LoginScreen> {
                   child: Container(height: 65.0,
                     child: RaisedButton(
                       onPressed: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
                         SystemChannels.textInput.invokeMethod('TextInput.hide');
                         requestLoginAPI(context, _userNameController.text, _passwordController.text);
                       },

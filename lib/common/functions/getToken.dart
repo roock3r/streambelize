@@ -36,3 +36,10 @@ Future<String> getUserAvatarPreference()  async {
   String userAvatar = preferences.getString("LastUserAvatar");
   return userAvatar;
 }
+
+
+Future<bool> showLoginPage() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String token = preferences.getString("LastToken");
+  return token == null;
+}

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:streambelize/ui/ScaffoldScreen.dart';
 import 'package:streambelize/ui/homeScreen.dart';
-import 'package:streambelize/ui/loginScreen.dart';
-import 'package:streambelize/ui/splashScreen.dart';
+//import 'package:streambelize/ui/loginScreen.dart';
+//import 'package:streambelize/ui/splashScreen.dart';
+import 'package:streambelize/ui/SigninScreen.dart';
+import 'package:streambelize/ui/MaterialSplashScreen.dart';
 
-
+//void main() => runApp(StreamBelizeApp());
 void main() => runApp(StreamBelizeApp());
 
 class StreamBelizeApp extends StatelessWidget {
@@ -14,11 +17,13 @@ class StreamBelizeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stream Belize Live ',
       routes: <String, WidgetBuilder>{
-        "/HomeScreen": (BuildContext context) => HomeScreen(),
-        "/LoginScreen": (BuildContext context) => LoginScreen(),
+//        "/HomeScreen": (BuildContext context) => HomeScreen(title: 'Stream Belize Live',),
+//        "/LoginScreen": (BuildContext context) => LoginScreen(),
+        "/SigninScreen": (BuildContext context) => SigninScreen(),
+        "/ScaffoldScreen": (BuildContext context) => ScaffoldScreen(),
     },
 
-      home: SplashScreen(),
+      home: MaterialSplashScreen(),
     );
   }
 }

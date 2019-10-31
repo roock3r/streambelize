@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Duration(seconds: splashDuration),
             () {
           SystemChannels.textInput.invokeMethod('TextInput.hide');
-          Navigator.of(context).pushReplacementNamed('/LoginScreen');
+          Navigator.of(context).pushReplacementNamed('/SigninScreen');
         }
     );
   }
