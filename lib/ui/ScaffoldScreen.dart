@@ -62,6 +62,7 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
   String _name  = "";
   String _email = "";
   String _token = "";
+  String _avatar = "";
 
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -74,8 +75,18 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
 //    getEmailPreference().then(updateEmail);
     _saveCurrentRoute("/ScaffoldScreen");
     firebaseCloudMessaging_Listeners();
+    _loadUser();
 
+  }
 
+  _loadUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      _token = preferences.getString("LastToken");
+      _name = preferences.getString("LastUser");
+      _email = preferences.getString("LastEmail");
+      _avatar = preferences.getString("LastUserAvatar");
+    });
   }
 
   //Modifcation starts here
@@ -132,7 +143,7 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
       case 0:
         return new HomePage();
       case 1:
-        return new Channel5(title: 'Channel 5',url: 'https://test.antmedia.io:5443/LiveApp/streams/867503970567813339763778.m3u8', color: Colors.lightBlue);
+        return new Channel5(title: 'Channel 5',url: 'https://connect.streambelize.live/LiveApp/streams/933564207825213990830532.m3u8', color: Colors.lightBlue);
       case 2:
         return new Channel7(title: 'Channel 7',url: 'https://record.streambelize.live/LiveApp/streams/930413663553097102911106.mp4',color: Colors.lightBlue);
       case 3:
@@ -177,26 +188,41 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
     await preferences.setString('LastScreenRoute', lastRoute);
   }
 
-  void updateName(String name) {
-    setState(() {
-      this._name = name;
-      print("AUTH STATE CHANGED NAME '$_name' ");
-    });
-  }
-
-  void updateToken(String token) {
-    setState(() {
-      this._token = token;
-      print("AUTH STATE CHANGED TOKEN '$_token' ");
-    });
-  }
-
-  void updateEmail(String email) {
-    setState(() {
-      this._email = email;
-      print("AUTH STATE CHANGED EMAIL '$_email' ");
-    });
-  }
+//    Future<List> userDetails() async {
+//    var url = 'https://buynsell.bz/api/search';
+//    final response = await HTTP.get(url,headers: {'Accept':'application/json'});
+//    Map<String,dynamic> mappedItems = json.decode(response.body);
+//    List<dynamic> listMappedItems = mappedItems['data']['results']['paginator']['data'];
+//    listMappedItems.forEach((_value){
+//      print("title: ${_value['title']}, price: ${_value['price']}");
+//    });
+//
+//    Future<List> getUserPreference()  async {
+//      SharedPreferences preferences = await SharedPreferences.getInstance();
+//      String name = preferences.getString("LastUser");
+//      return name;
+//    }
+//
+//  void updateName(String name) {
+//    setState(() {
+//      this._name = name;
+//      print("AUTH STATE CHANGED NAME '$_name' ");
+//    });
+//  }
+//
+//  void updateToken(String token) {
+//    setState(() {
+//      this._token = token;
+//      print("AUTH STATE CHANGED TOKEN '$_token' ");
+//    });
+//  }
+//
+//  void updateEmail(String email) {
+//    setState(() {
+//      this._email = email;
+//      print("AUTH STATE CHANGED EMAIL '$_email' ");
+//    });
+//  }
 
 
 
@@ -223,6 +249,7 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('$_name $_email $_token $_avatar');
     List<Widget> drawerOptions = [];
     for (var i = 0; i < widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
@@ -260,16 +287,16 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
                     padding: EdgeInsets.zero,
                     children: <Widget>[
                       UserAccountsDrawerHeader(
-                        accountName: Text("Test".toUpperCase()),
-                        accountEmail: Text("Test@testmail.com"),
+                        accountName: Text("$_name".toUpperCase()),
+                        accountEmail: Text("$_email"),
                         currentAccountPicture: CircleAvatar(
-                          backgroundImage: Image.network('http://www.gravatar.com/avatar/a6cc615ece03f1f1b42a4f4635065011?s=200&r=pg&d=mm').image,
+                          backgroundImage: Image.network('http:$_avatar').image,
                           backgroundColor:
                           Theme.of(context).platform == TargetPlatform.iOS
                               ? Colors.blue
                               : Colors.white,
                           child: Text(
-                            "test".substring(0, 1),
+                            "$_name".substring(0, 1),
                             style: TextStyle(fontSize: 40.0,),
 
                           ),
