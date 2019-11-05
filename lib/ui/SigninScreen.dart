@@ -103,7 +103,7 @@ class _SigninScreenState extends State<SigninScreen> {
                             style: new TextStyle(fontSize: 20.0, color: Colors.black, ),
                           ),
                           TextSpan(
-                            text: 'Google',
+                            text: 'StreamBelize',
                             style: TextStyle(fontSize: 20.0, color: Colors.blueAccent, decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
