@@ -70,9 +70,6 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
   @override
   void initState() {
     super.initState();
-//    getTokenPreference().then(updateToken);
-//    getNamePreference().then(updateName);
-//    getEmailPreference().then(updateEmail);
     _saveCurrentRoute("/ScaffoldScreen");
     firebaseCloudMessaging_Listeners();
     _loadUser();
@@ -145,7 +142,7 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
       case 1:
         return new Channel5(title: 'Channel 5',url: 'https://connect.streambelize.live/LiveApp/streams/933564207825213990830532.m3u8', color: Colors.lightBlue);
       case 2:
-        return new Channel7(title: 'Channel 7',url: 'https://record.streambelize.live/LiveApp/streams/930413663553097102911106.mp4',color: Colors.lightBlue);
+        return new Channel7(title: 'Channel 7',url: 'https://www.youtube.com/watch?v=Rtbzr79anLY',color: Colors.lightBlue);
       case 3:
         return new LoveTv(title: 'Love TV',url: 'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8', color: Colors.red,);
       case 4:
@@ -187,42 +184,6 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString('LastScreenRoute', lastRoute);
   }
-
-//    Future<List> userDetails() async {
-//    var url = 'https://buynsell.bz/api/search';
-//    final response = await HTTP.get(url,headers: {'Accept':'application/json'});
-//    Map<String,dynamic> mappedItems = json.decode(response.body);
-//    List<dynamic> listMappedItems = mappedItems['data']['results']['paginator']['data'];
-//    listMappedItems.forEach((_value){
-//      print("title: ${_value['title']}, price: ${_value['price']}");
-//    });
-//
-//    Future<List> getUserPreference()  async {
-//      SharedPreferences preferences = await SharedPreferences.getInstance();
-//      String name = preferences.getString("LastUser");
-//      return name;
-//    }
-//
-//  void updateName(String name) {
-//    setState(() {
-//      this._name = name;
-//      print("AUTH STATE CHANGED NAME '$_name' ");
-//    });
-//  }
-//
-//  void updateToken(String token) {
-//    setState(() {
-//      this._token = token;
-//      print("AUTH STATE CHANGED TOKEN '$_token' ");
-//    });
-//  }
-//
-//  void updateEmail(String email) {
-//    setState(() {
-//      this._email = email;
-//      print("AUTH STATE CHANGED EMAIL '$_email' ");
-//    });
-//  }
 
 
 

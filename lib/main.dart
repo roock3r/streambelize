@@ -17,8 +17,6 @@ class StreamBelizeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stream Belize Live ',
       routes: <String, WidgetBuilder>{
-//        "/HomeScreen": (BuildContext context) => HomeScreen(title: 'Stream Belize Live',),
-//        "/LoginScreen": (BuildContext context) => LoginScreen(),
         "/SigninScreen": (BuildContext context) => SigninScreen(),
         "/ScaffoldScreen": (BuildContext context) => ScaffoldScreen(),
     },
