@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:streambelize/ui/ScaffoldScreen.dart';
-import 'package:streambelize/ui/homeScreen.dart';
-//import 'package:streambelize/ui/loginScreen.dart';
-//import 'package:streambelize/ui/splashScreen.dart';
 import 'package:streambelize/ui/SigninScreen.dart';
 import 'package:streambelize/ui/MaterialSplashScreen.dart';
 
